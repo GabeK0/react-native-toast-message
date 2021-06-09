@@ -1,4 +1,4 @@
-# react-native-toast-message
+# react-native-toast-message-large
 
 [![npm version](https://img.shields.io/npm/v/react-native-toast-message)](https://www.npmjs.com/package/react-native-toast-message)
 [![npm downloads](https://img.shields.io/npm/dw/react-native-toast-message)](https://www.npmjs.com/package/react-native-toast-message)
@@ -11,10 +11,12 @@ Animated toast message component for React Native.
 - Keyboard aware
 - Flexible config
 
+Exactly the same as react-native-toast-message except I made the toast a bit larger and increased the amount of lines of text for text2, since the height prop in the current version does not seem to be working (and I don't think it easily supports changing the lines of text for text2)
+
 ## Install
 
 ```
-yarn add react-native-toast-message
+yarn add react-native-toast-message-large
 ```
 
 ![ToastSuccess](success-toast.gif)
@@ -25,7 +27,7 @@ Render the `Toast` component in your app entry file (along with everything that 
 
 ```js
 // App.jsx
-import Toast from 'react-native-toast-message';
+import Toast from 'react-native-toast-message-large';
 
 function App(props) {
   return (
@@ -42,7 +44,7 @@ export default App;
 Then use it anywhere in your app (even outside React components), by calling any `Toast` method directly:
 
 ```js
-import Toast from 'react-native-toast-message';
+import Toast from 'react-native-toast-message-large';
 
 function SomeComponent() {
   React.useEffect(() => {
@@ -111,13 +113,13 @@ const props = {
 
 ## Customize layout
 
-If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. 
+If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
 
 You can either use the default `BaseToast` style and adjust its layout, or create Toast layouts from scratch.
 
 ```js
 // App.jsx
-import Toast, { BaseToast }  from 'react-native-toast-message';
+import Toast, { BaseToast } from 'react-native-toast-message-large';
 
 const toastConfig = {
   /* 
@@ -137,7 +139,7 @@ const toastConfig = {
       text2={props.uuid}
     />
   ),
-  
+
   /* 
     or create a completely new type - `my_custom_type`,
     building the layout from scratch
@@ -200,7 +202,7 @@ const baseToastProps = {
 To have the toast visible on top of the navigation `View` hierarchy, simply render it inside the `NavigationContainer`.
 
 ```js
-import Toast from 'react-native-toast-message'
+import Toast from 'react-native-toast-message-large'
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
@@ -216,7 +218,7 @@ export default function App() {
 ### How to mock the library for testing with [jest](https://jestjs.io)?
 
 ```js
-jest.mock('react-native-toast-message', () => ({
+jest.mock('react-native-toast-message-large', () => ({
   show: jest.fn(),
   hide: jest.fn()
 }));
@@ -227,11 +229,13 @@ jest.mock('react-native-toast-message', () => ({
 When a `Modal` is visible, the Toast gets rendered behind it. This is due to [the way `Modal` is implemented](https://stackoverflow.com/a/57402783). As a workaround, you can have 2 separate Toast instances: one inside the Modal (let's call it a "modal toast") and a normal one outside.
 
 For the one outside, set the ref on the Toast object (like usual)
+
 ```js
 <Toast ref={ref => Toast.setRef(ref) />
 ```
 
 And for the "modal toast", use another ref
+
 ```js
 function ScreenWithModal() {
   const modalToastRef = React.useRef();
@@ -243,6 +247,7 @@ function ScreenWithModal() {
   );
 }
 ```
+
 Then, when you want to show the "modal toast", call it using `modalToastRef.current.show()`.
 
 ## Credits
